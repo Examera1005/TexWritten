@@ -6,7 +6,7 @@ Comprehensive enhancement roadmap for the handwritten-to-LaTeX converter.
 
 ## Current State
 
-- **Single-page PDF**: Only first page rendered via pdfjs-dist
+- **Multi-page PDF**: All pages rendered via pdfjs-dist with page selector
 - **One image**: Single image upload at a time
 - **Export**: `.tex`, `.md`, annotated PNG only
 - **OCR Providers**: OpenAI Vision, Mathpix, Tesseract, Mock
@@ -148,7 +148,7 @@ Tasks:
 
 ### Current Pain Points
 
-1. **No multi-page** → Page selector needed
+1. **Multi-page available** → Next improvement: thumbnails and per-page retry
 2. **No batch** → Queue sidebar needed
 3. **No progress** → Global + per-file indicators
 4. **Silent failures** → Toast notifications + retry buttons
@@ -178,7 +178,7 @@ Tasks:
 
 ## Next Steps
 
-1. **Confirm priorities** → Which features ship first?
+1. **Tier 1 shipped** → Multi-page PDF, dropzone upload, and progress indicator
 2. **API keys** → Which providers to add?
 3. **Deployment target** → Vercel vs custom?
 

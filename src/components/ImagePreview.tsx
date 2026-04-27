@@ -1,18 +1,32 @@
 import type { OcrBlock } from "../types/ocr";
+import { PageSelector } from "./PageSelector";
 
 interface ImagePreviewProps {
   previewUrl?: string;
   fileName?: string;
   pageCount?: number;
+  activePageIndex?: number;
   blocks?: OcrBlock[];
+  onPageSelect?: (index: number) => void;
 }
 
-export function ImagePreview({ previewUrl, fileName, pageCount, blocks = [] }: ImagePreviewProps) {
+export function ImagePreview({
+  previewUrl,
+  fileName,
+  pageCount = 0,
+  activePageIndex = 0,
+  blocks = [],
+  onPageSelect
+}: ImagePreviewProps) {
   return (
     <section className="rounded-lg border border-ink/10 bg-white p-4 shadow-subtle">
       <div className="mb-3 flex items-center justify-between gap-3">
         <h2 className="text-sm font-semibold uppercase tracking-normal text-graphite">Prévisualisation</h2>
-        {pageCount ? <span className="text-xs text-graphite">{pageCount} page(s)</span> : null}
+        {pageCount ? (
+          <span className="text-xs text-graphite">
+            Page {activePageIndex + 1} / {pageCount}
+          </span>
+        ) : null}
       </div>
 
       <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-lg border border-ink/10 bg-paper">
@@ -41,6 +55,10 @@ export function ImagePreview({ previewUrl, fileName, pageCount, blocks = [] }: I
           <span className="text-sm text-graphite">Aucun fichier sélectionné</span>
         )}
       </div>
+
+      {onPageSelect ? (
+        <PageSelector pageCount={pageCount} activePageIndex={activePageIndex} onPageSelect={onPageSelect} />
+      ) : null}
     </section>
   );
 }

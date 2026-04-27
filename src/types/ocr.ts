@@ -12,6 +12,16 @@ export type OcrProvider = "openai" | "mathpix" | "tesseract" | "mock";
 
 export type SourceType = "image" | "pdf";
 
+export type OcrProgressStage = "idle" | "preparing" | "processing" | "complete" | "error";
+
+export interface OcrProgress {
+  stage: OcrProgressStage;
+  current: number;
+  total: number;
+  percent: number;
+  message: string;
+}
+
 export interface BoundingBox {
   x: number;
   y: number;

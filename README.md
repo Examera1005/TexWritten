@@ -11,7 +11,7 @@ Web application that extracts LaTeX from handwritten scientific notes or images.
 - Frontend: React, Vite, TypeScript
 - Styling: Tailwind CSS
 - Rendu math: KaTeX
-- PDF: rendu de la première page via `pdfjs-dist`
+- PDF: rendu multi-page via `pdfjs-dist`
 - Backend: API Node/Express
 - OCR modulaire:
   - `openai`: vision model via Responses API avec Structured Outputs
@@ -83,6 +83,8 @@ Références utiles:
     ResultPanel.tsx
     ExportButtons.tsx
     HistoryPanel.tsx
+    PageSelector.tsx
+    ProgressIndicator.tsx
   /lib
     ocrPipeline.ts
     latexCleaner.ts
@@ -113,13 +115,14 @@ Références utiles:
 
 1. Upload image/PDF.
 2. Prétraitement navigateur:
-   - rendu première page PDF si nécessaire,
+   - rendu de toutes les pages PDF si nécessaire,
    - resize,
    - grayscale,
    - amélioration de contraste.
-3. Envoi à `/api/convert`.
-4. Provider OCR sélectionné par `OCR_PROVIDER`.
-5. Sortie JSON structurée:
+3. Sélection de page dans l'interface pour inspecter prévisualisation et résultat.
+4. Envoi séquentiel des pages à `/api/convert` avec progression.
+5. Provider OCR sélectionné par `OCR_PROVIDER`.
+6. Sortie JSON structurée:
 
 ```json
 {
@@ -139,12 +142,12 @@ Références utiles:
 }
 ```
 
-6. Nettoyage LaTeX:
+7. Nettoyage LaTeX:
    - normalisation commandes,
    - validation accolades,
    - validation environnements,
    - ajout de `% TODO: vérifier cette formule` si confiance faible.
-7. Édition, rendu KaTeX, export, historique local.
+8. Édition, rendu KaTeX, export, historique local.
 
 ## Préambule LaTeX recommandé
 
@@ -193,7 +196,7 @@ v = \SI{3.2}{\meter\per\second}
 
 ## Limites connues
 
-- Le MVP convertit seulement la première page d'un PDF.
+- Les PDF multi-pages sont rendus côté navigateur puis envoyés page par page; de très gros PDF peuvent être lents ou consommer beaucoup de mémoire.
 - Tesseract est un fallback texte; il ne reconnaît pas correctement la plupart des maths manuscrites.
 - Les providers vision peuvent confondre `1/l`, `0/O`, `x/χ`, indices, exposants et bornes d'intégrales si l'écriture est floue.
 - Les matrices et systèmes manuscrits sans alignement clair demandent souvent correction.
