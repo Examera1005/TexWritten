@@ -41,37 +41,6 @@ export interface OcrResult {
   createdAt?: string;
 }
 
-export interface ConvertRequest {
-  fileName: string;
-  mimeType: string;
-  dataUrl: string;
-  sourceType: SourceType;
-  pageCount?: number;
-  pageNumber?: number;
-  totalPages?: number;
-}
-
-export interface ProcessedPage extends ConvertRequest {
-  previewUrl: string;
-}
-
-export interface ProcessedUpload extends ConvertRequest {
-  originalFile: File;
-  previewUrl: string;
-  pages: ProcessedPage[];
-}
-
-export interface ConversionHistoryItem {
-  id: string;
-  fileName: string;
-  previewDataUrl: string;
-  pagePreviews?: string[];
-  result: OcrResult;
-  results?: OcrResult[];
-  editedLatex: string;
-  createdAt: string;
-}
-
 export interface LatexValidation {
   balancedBraces: boolean;
   environmentWarnings: string[];

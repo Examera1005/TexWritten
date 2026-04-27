@@ -1,0 +1,28 @@
+{
+  "name": "@texwritten/core",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/index.browser.d.ts",
+      "import": "./dist/index.browser.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "build:browser": "tsc -p tsconfig.browser.json",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
